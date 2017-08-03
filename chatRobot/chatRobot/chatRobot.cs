@@ -30,6 +30,7 @@ namespace chatRobot
         string json = "";
         string question = "";
         string text = "";
+        int userInsertFlag = 0;
 
         public String getAnswer(string question)
         {
@@ -82,9 +83,37 @@ namespace chatRobot
             return text;
 
         }
+
+        public void insertUserMsg(string question)
+        {
+            string q = question;
+            if (q == "")
+            {
+                return;
+            }
+            try
+            {
+                var doc = new HtmlAgilityPack.HtmlDocument();
+                doc.Load(index, utf8);
+                var node = doc.DocumentNode.SelectSingleNode("//body//div//ul");
+                HtmlNode newUserMsg = HtmlNode.CreateNode("<li class='user'><div>" + q + "</div></li>" + "\n");
+                node.AppendChild(newUserMsg);
+                doc.Save(index, utf8);
+                webBrowser1.Refresh();
+                System.Windows.Forms.Application.DoEvents();
+                webBrowser1.Document.Window.ScrollTo(webBrowser1.Document.Body.ScrollTop, webBrowser1.Document.Body.ScrollRectangle.Bottom);
+                userInsertFlag = 1;
+            }
+            catch
+            {
+                userInsertFlag = 0;
+            }
+        }
+
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             question = questionText.Text;
+            insertUserMsg(question);
             string json = getAnswer(question);
             text = parseAnswer(json);
             MessageBox.Show(text);
