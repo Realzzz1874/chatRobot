@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.questionText = new System.Windows.Forms.RichTextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -44,13 +44,13 @@
             this.webBrowser1.Size = new System.Drawing.Size(806, 381);
             this.webBrowser1.TabIndex = 0;
             // 
-            // richTextBox1
+            // questionText
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(12, 403);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(647, 60);
-            this.richTextBox1.TabIndex = 2;
-            this.richTextBox1.Text = "";
+            this.questionText.Location = new System.Drawing.Point(12, 403);
+            this.questionText.Name = "questionText";
+            this.questionText.Size = new System.Drawing.Size(647, 60);
+            this.questionText.TabIndex = 2;
+            this.questionText.Text = "";
             // 
             // pictureBox1
             // 
@@ -68,7 +68,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(808, 492);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.questionText);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.webBrowser1);
             this.Name = "chatRobot";
@@ -82,7 +82,7 @@
 
         private System.Windows.Forms.WebBrowser webBrowser1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox questionText;
     }
 }
 
