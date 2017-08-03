@@ -31,6 +31,7 @@ namespace chatRobot
         string question = "";
         string text = "";
         int userInsertFlag = 0;
+        int robotInsertFlag = 0;
 
         public String getAnswer(string question)
         {
@@ -110,13 +111,47 @@ namespace chatRobot
             }
         }
 
+        public void insertRobotMsg(string text)
+        {
+            string t = text;
+            if (t == "")
+            {
+                return;
+            }
+            try
+            {
+                var doc = new HtmlAgilityPack.HtmlDocument();
+                doc.Load(index, utf8);
+                var node = doc.DocumentNode.SelectSingleNode("//body//div//ul");
+                var robotNode = "<li class = 'robot'><div><span>" + t + "</span></div></li>";
+                HtmlNode newRobotMsg = HtmlNode.CreateNode(robotNode);
+                node.AppendChild(newRobotMsg);
+                doc.Save(index, utf8);
+                webBrowser1.Refresh();
+
+                System.Windows.Forms.Application.DoEvents();
+                webBrowser1.Document.Window.ScrollTo(webBrowser1.Document.Body.ScrollTop, webBrowser1.Document.Body.ScrollRectangle.Bottom);
+                robotInsertFlag = 1;
+            }
+            catch
+            {
+                robotInsertFlag = 0;
+            }
+        }
+
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             question = questionText.Text;
+            questionText.Text = "";
             insertUserMsg(question);
             string json = getAnswer(question);
             text = parseAnswer(json);
-            MessageBox.Show(text);
+            //MessageBox.Show(text);
+            if(userInsertFlag == 1)
+            {
+                insertRobotMsg(text);
+            }
+            
         }
 
     }
