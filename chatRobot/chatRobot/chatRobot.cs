@@ -139,6 +139,16 @@ namespace chatRobot
             }
         }
 
+        public void clearMsg()
+        {
+            var doc = new HtmlAgilityPack.HtmlDocument();
+            doc.Load(index);
+            var node = doc.DocumentNode.SelectSingleNode("//body//div/ul");
+            node.RemoveAllChildren();
+            doc.Save(index);
+            webBrowser1.Refresh();
+        }
+
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             question = questionText.Text;
@@ -152,6 +162,11 @@ namespace chatRobot
                 insertRobotMsg(text);
             }
             
+        }
+
+        private void chatRobot_Load(object sender, EventArgs e)
+        {
+            clearMsg();
         }
 
     }
