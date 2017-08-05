@@ -124,4 +124,10 @@
   <data name="send1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\assets\send.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="speak" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\assets\speak.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="speaking" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\assets\speaking.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

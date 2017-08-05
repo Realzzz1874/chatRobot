@@ -12,6 +12,8 @@ using System.Net;
 using System.IO;
 using Newtonsoft.Json.Linq;
 using HtmlAgilityPack;
+using Speak;
+using System.Threading;
 
 namespace chatRobot
 {
@@ -32,6 +34,7 @@ namespace chatRobot
         string text = "";
         int userInsertFlag = 0;
         int robotInsertFlag = 0;
+        static string receiveData;
 
         public String getAnswer(string question)
         {
@@ -149,6 +152,38 @@ namespace chatRobot
             webBrowser1.Refresh();
         }
 
+
+
+        //语音
+        static void receiverDataHandler(string str)
+        {
+            receiveData += str;
+        }
+
+        public void iatPlay()
+        {
+            try
+            {
+                SpeakFunction speaker = new SpeakFunction();
+                speaker.DataReceive += receiverDataHandler;
+                string login_configs = "dvc=Name32890, appid=58d328e1, work_dir =   .  ,timeout=1000";//登录参数
+                string param1 = "sub=iat,ssm=1,auf=audio/L16;rate=16000,aue=speex-wb;7,ent=sms16k,rst=plain,rse=gb2312";
+                speaker.Begin_Translate2(login_configs, param1);
+                questionText.Text = receiveData;
+            }
+            catch
+            {
+                
+            }
+            finally
+            {
+                receiveData = "";
+                pictureBox2.Enabled = true;
+                pictureBox2.Image = Properties.Resources.speak;
+            }
+
+        }
+
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             question = questionText.Text;
@@ -167,6 +202,20 @@ namespace chatRobot
         private void chatRobot_Load(object sender, EventArgs e)
         {
             clearMsg();
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            pictureBox2.Enabled = false;
+            pictureBox2.Image = Properties.Resources.speaking;
+            ThreadStart threadStart = new ThreadStart(delegate()
+                {
+                    iatPlay();
+                });
+            Thread thread = new Thread(threadStart);
+            Control.CheckForIllegalCrossThreadCalls = false;
+            thread.Start();
+            
         }
 
     }
